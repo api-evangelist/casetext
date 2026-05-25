@@ -1,0 +1,94 @@
+aid: casetext
+name: Casetext
+description: >-
+  Casetext is a legal technology company founded in 2013 by Jake Heller, Joanna
+  Huey, and Laurence Pfeffer and headquartered in San Francisco, California.
+  The company built one of the earliest neural-search engines for U.S. case
+  law (Parallel Search) and a broader research platform covering federal and
+  state cases, statutes, regulations, and secondary sources, with citator
+  signals delivered through its SmartCite feature. Casetext is best known for
+  CoCounsel, a generative-AI legal assistant released in March 2023 and
+  originally built on top of OpenAI's GPT-4, that automates document review,
+  deposition preparation, contract analysis, legal research memos, and
+  database queries for law firms and in-house legal teams. Companion products
+  include AllSearch, a private document search tool that lets firms run
+  Parallel Search across their own document collections, and Compose, an
+  automated brief-drafting product. Thomson Reuters acquired Casetext in
+  June 2023 for $650 million in an all-cash deal that closed in August 2023,
+  and CoCounsel has since been integrated across Thomson Reuters' Westlaw,
+  Practical Law, and HighQ product lines as the company's flagship legal-AI
+  assistant. The Casetext platform is sold as a SaaS subscription to law
+  firms, corporate legal departments, and government agencies; there is no
+  public developer API, SDK, or open-source release, and the casetext GitHub
+  organization contains only archived research forks (transformers, ELECTRA,
+  pgvector, FiD) plus a handful of internal infrastructure repos that were
+  archived after the Thomson Reuters acquisition.
+type: Index
+position: Provider
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Legal
+  - Legal Tech
+  - Legal Research
+  - Case Law
+  - Legal AI
+  - Generative AI
+  - CoCounsel
+  - Parallel Search
+  - AllSearch
+  - Compose
+  - SmartCite
+  - Document Review
+  - Contract Analysis
+  - Deposition Preparation
+  - Thomson Reuters
+url: https://raw.githubusercontent.com/api-evangelist/casetext/refs/heads/main/apis.yml
+created: '2026-05-25'
+modified: '2026-05-25'
+specificationVersion: '0.20'
+apis: []
+common:
+  - type: Website
+    url: https://casetext.com
+  - type: CoCounsel
+    url: https://casetext.com/cocounsel/
+  - type: ParallelSearch
+    url: https://casetext.com/parallel-search/
+  - type: AllSearch
+    url: https://casetext.com/allsearch/
+  - type: Compose
+    url: https://compose.law/
+  - type: SmartCite
+    url: https://casetext.com/smartcite/
+  - type: Pricing
+    url: https://casetext.com/pricing/
+  - type: Customers
+    url: https://casetext.com/customers/
+  - type: About
+    url: https://casetext.com/about/
+  - type: Careers
+    url: https://casetext.com/careers/
+  - type: Blog
+    url: https://casetext.com/blog/
+  - type: Contact
+    url: https://casetext.com/contact/
+  - type: SignIn
+    url: https://casetext.com/signin/
+  - type: ParentCompany
+    url: https://www.thomsonreuters.com
+  - type: Acquisition
+    url: https://www.thomsonreuters.com/en/press-releases/2023/june/thomson-reuters-to-acquire-casetext-an-ai-leader-for-legal-professionals.html
+  - type: GitHub
+    url: https://github.com/casetext
+  - type: Twitter
+    url: https://twitter.com/casetext
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/casetext
+  - type: Crunchbase
+    url: https://www.crunchbase.com/organization/casetext
+  - type: Wikipedia
+    url: https://en.wikipedia.org/wiki/Casetext
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,1066 @@
+"""
+Casetext GraphQL Schema
+Conceptual schema for the Casetext AI legal research platform.
+Covers case law, statutes, regulations, citations, AI research tools (CARA, CoCounsel),
+contract analysis, brief drafting, and API access management.
+"""
+
+# ─── Enumerations ────────────────────────────────────────────────────────────
+
+enum CaseType {
+  CIVIL
+  CRIMINAL
+  ADMINISTRATIVE
+  CONSTITUTIONAL
+  BANKRUPTCY
+  FAMILY
+  IMMIGRATION
+  INTELLECTUAL_PROPERTY
+  TAX
+  LABOR
+  ENVIRONMENTAL
+  SECURITIES
+  ANTITRUST
+}
+
+enum CaseStatus {
+  PUBLISHED
+  UNPUBLISHED
+  SUPERSEDED
+  REVERSED
+  AFFIRMED
+  VACATED
+  REMANDED
+  DISMISSED
+  PENDING
+}
+
+enum CourtLevel {
+  SUPREME_COURT
+  CIRCUIT_COURT
+  DISTRICT_COURT
+  BANKRUPTCY_COURT
+  STATE_SUPREME_COURT
+  STATE_APPELLATE_COURT
+  STATE_TRIAL_COURT
+  ADMINISTRATIVE_TRIBUNAL
+}
+
+enum PrecedentStatus {
+  GOOD_LAW
+  CAUTIONARY
+  NEGATIVE_TREATMENT
+  OVERRULED
+  SUPERSEDED
+  DISTINGUISHED
+  QUESTIONED
+}
+
+enum CitationTreatment {
+  FOLLOWED
+  DISTINGUISHED
+  CRITICIZED
+  OVERRULED
+  EXPLAINED
+  HARMONIZED
+  QUESTIONED
+  CITED
+}
+
+enum BillStatus {
+  INTRODUCED
+  IN_COMMITTEE
+  PASSED_HOUSE
+  PASSED_SENATE
+  ENROLLED
+  SIGNED
+  VETOED
+  ENACTED
+  FAILED
+}
+
+enum JurisdictionType {
+  FEDERAL
+  STATE
+  LOCAL
+  TRIBAL
+  TERRITORIAL
+  INTERNATIONAL
+}
+
+# ─── Court Types ─────────────────────────────────────────────────────────────
+
+"""A court within the U.S. judicial system."""
+type Court {
+  id: ID!
+  name: String!
+  shortName: String
+  level: CourtLevel!
+  jurisdiction: CourtJurisdiction!
+  details: CourtDetails
+  judges: [Judge!]
+  cases(limit: Int, offset: Int): [Case!]
+  url: String
+}
+
+"""Extended metadata for a court."""
+type CourtDetails {
+  court: Court!
+  circuit: String
+  district: String
+  state: String
+  city: String
+  founded: String
+  chiefJudge: Judge
+  numberOfJudges: Int
+  websiteUrl: String
+  addressLine1: String
+  addressLine2: String
+  phone: String
+}
+
+"""Jurisdiction scope of a court."""
+type CourtJurisdiction {
+  court: Court!
+  type: JurisdictionType!
+  states: [String!]
+  circuits: [String!]
+  subjectMatter: [String!]
+  geographic: String
+}
+
+# ─── Jurisdiction Types ───────────────────────────────────────────────────────
+
+"""A legal jurisdiction (federal, state, etc.)."""
+type Jurisdiction {
+  id: ID!
+  name: String!
+  abbreviation: String!
+  type: JurisdictionType!
+  details: JurisdictionDetails
+  courts: [Court!]
+  statutes: [Statute!]
+  regulations: [Regulation!]
+}
+
+"""Extended metadata for a jurisdiction."""
+type JurisdictionDetails {
+  jurisdiction: Jurisdiction!
+  capital: String
+  region: String
+  federalCircuit: String
+  population: Int
+  legalSystem: String
+  reporterAbbreviations: [String!]
+}
+
+# ─── Judge Types ──────────────────────────────────────────────────────────────
+
+"""A judge who has authored or participated in cases."""
+type Judge {
+  id: ID!
+  name: String!
+  court: Court!
+  details: JudgeDetails
+  cases(limit: Int, offset: Int): [Case!]
+}
+
+"""Extended biographical and appointment metadata for a judge."""
+type JudgeDetails {
+  judge: Judge!
+  firstName: String!
+  lastName: String!
+  middleName: String
+  title: String
+  appointedBy: String
+  appointmentDate: String
+  confirmationDate: String
+  seniorStatus: Boolean
+  education: [String!]
+  priorPositions: [String!]
+  active: Boolean!
+}
+
+# ─── Case Law Types ───────────────────────────────────────────────────────────
+
+"""A legal case in the Casetext database."""
+type Case {
+  id: ID!
+  name: String!
+  citation: String!
+  caseType: CaseType!
+  status: CaseStatus!
+  court: Court!
+  jurisdiction: Jurisdiction!
+  decidedDate: String
+  filedDate: String
+  docket: CaseDocket
+  details: CaseDetails
+  summary: CaseSummary
+  citations: [CaseCitation!]
+  citedBy: [CaseCitation!]
+  similarCases: [SimilarCase!]
+  judges: [Judge!]
+  fullText: String
+  headnotes: [String!]
+  tags: [String!]
+}
+
+"""Extended metadata and content for a case."""
+type CaseDetails {
+  case: Case!
+  fullCitation: String!
+  parallelCitations: [String!]
+  counsel: [String!]
+  parties: CaseParties!
+  procedureHistory: String
+  holdingText: String
+  dispositionText: String
+  opinion: String
+  concurrences: [String!]
+  dissents: [String!]
+  syllabus: String
+  wordCount: Int
+  pageCount: Int
+}
+
+"""Parties in a legal case."""
+type CaseParties {
+  plaintiff: String
+  defendant: String
+  appellant: String
+  appellee: String
+  petitioner: String
+  respondent: String
+  additionalParties: [String!]
+}
+
+"""A citation reference to or from a case."""
+type CaseCitation {
+  id: ID!
+  sourceCase: Case!
+  targetCase: Case
+  citation: String!
+  treatment: CitationTreatment!
+  pinpoint: String
+  context: String
+  pageNumber: String
+}
+
+"""Docket information for a case."""
+type CaseDocket {
+  id: ID!
+  case: Case!
+  docketNumber: String!
+  filingDate: String
+  closingDate: String
+  entries: [DocketEntry!]
+  judge: Judge
+}
+
+"""An individual entry in a case docket."""
+type DocketEntry {
+  id: ID!
+  docket: CaseDocket!
+  date: String!
+  description: String!
+  documentId: String
+  entryNumber: Int
+}
+
+"""An AI-generated or editorial summary of a case."""
+type CaseSummary {
+  id: ID!
+  case: Case!
+  headline: String!
+  facts: String
+  issue: String
+  holding: String
+  reasoning: String
+  significance: String
+  practiceAreas: [String!]
+  generatedBy: String
+  generatedAt: String
+}
+
+# ─── Statute Types ────────────────────────────────────────────────────────────
+
+"""A statutory provision in the Casetext database."""
+type Statute {
+  id: ID!
+  title: String!
+  citation: String!
+  jurisdiction: Jurisdiction!
+  code: StatuteCode!
+  details: StatuteDetails
+  sections: [StatuteSection!]
+  cases: [Case!]
+  regulations: [Regulation!]
+}
+
+"""Extended metadata for a statute."""
+type StatuteDetails {
+  statute: Statute!
+  effectiveDate: String
+  enactedDate: String
+  amendedDate: String
+  repealedDate: String
+  publicLawNumber: String
+  sessionLaw: String
+  fullText: String
+  annotations: [String!]
+  relatedStatutes: [Statute!]
+  history: String
+}
+
+"""A statutory code (e.g., U.S. Code, California Code)."""
+type StatuteCode {
+  id: ID!
+  name: String!
+  abbreviation: String!
+  jurisdiction: Jurisdiction!
+  currentEdition: String
+  statutes: [Statute!]
+  url: String
+}
+
+"""A single section within a statute."""
+type StatuteSection {
+  id: ID!
+  statute: Statute!
+  sectionNumber: String!
+  heading: String
+  text: String!
+  subsections: [StatuteSection!]
+  crossReferences: [String!]
+}
+
+# ─── Regulation Types ─────────────────────────────────────────────────────────
+
+"""A federal or state regulation."""
+type Regulation {
+  id: ID!
+  title: String!
+  citation: String!
+  jurisdiction: Jurisdiction!
+  cfr: CFR
+  details: RegulationDetails
+  sections: [RegulationSection!]
+  relatedStatutes: [Statute!]
+  cases: [Case!]
+}
+
+"""Extended metadata for a regulation."""
+type RegulationDetails {
+  regulation: Regulation!
+  agency: String!
+  effectiveDate: String
+  publishedDate: String
+  federalRegisterCitation: String
+  fullText: String
+  summary: String
+  rulemakingType: String
+  history: String
+}
+
+"""Code of Federal Regulations structure."""
+type CFR {
+  id: ID!
+  title: Int!
+  titleName: String!
+  part: Int
+  section: String
+  chapter: String
+  subchapter: String
+  regulation: Regulation
+  text: String
+  effectiveDate: String
+}
+
+"""A single section within a regulation."""
+type RegulationSection {
+  id: ID!
+  regulation: Regulation!
+  sectionNumber: String!
+  heading: String
+  text: String!
+  subsections: [RegulationSection!]
+}
+
+# ─── Legislation Types ────────────────────────────────────────────────────────
+
+"""A legislative bill."""
+type Bill {
+  id: ID!
+  title: String!
+  billNumber: String!
+  jurisdiction: Jurisdiction!
+  status: BillStatus!
+  details: BillDetails
+  sponsors: [String!]
+  versions: [BillVersion!]
+  relatedBills: [Bill!]
+}
+
+"""Extended metadata for a bill."""
+type BillDetails {
+  bill: Bill!
+  introducedDate: String
+  passedHouseDate: String
+  passedSenateDate: String
+  signedDate: String
+  vetoedDate: String
+  enactedDate: String
+  summary: String
+  fullText: String
+  committee: String
+  subjectAreas: [String!]
+  publicLaw: String
+}
+
+"""A version of a bill (introduced, amended, enrolled, etc.)."""
+type BillVersion {
+  id: ID!
+  bill: Bill!
+  version: String!
+  date: String!
+  text: String
+  changes: String
+}
+
+# ─── Citation Analysis Types ──────────────────────────────────────────────────
+
+"""A legal citation."""
+type Citation {
+  id: ID!
+  raw: String!
+  normalized: String
+  type: String
+  case: Case
+  statute: Statute
+  regulation: Regulation
+  details: CitationDetails
+  analysis: CitationAnalysis
+}
+
+"""Parsed and structured citation metadata."""
+type CitationDetails {
+  citation: Citation!
+  volume: String
+  reporter: String
+  page: String
+  year: String
+  court: Court
+  pinpoint: String
+  valid: Boolean!
+  ambiguous: Boolean!
+}
+
+"""SmartCite citator analysis for a citation."""
+type CitationAnalysis {
+  citation: Citation!
+  precedentStatus: PrecedentStatus!
+  positiveCount: Int!
+  negativeCount: Int!
+  neutralCount: Int!
+  totalCitingCases: Int!
+  treatments: [CitationTreatmentRecord!]!
+  keyNegativeCases: [Case!]
+  keyPositiveCases: [Case!]
+  analysisDate: String!
+  reliable: Boolean!
+}
+
+"""A single citation treatment record."""
+type CitationTreatmentRecord {
+  id: ID!
+  citingCase: Case!
+  treatment: CitationTreatment!
+  excerpt: String
+  date: String
+  weight: Float
+}
+
+# ─── Research Types ───────────────────────────────────────────────────────────
+
+"""A research session or saved research project."""
+type Research {
+  id: ID!
+  title: String!
+  query: ResearchQuery!
+  results: SearchResults
+  createdAt: String!
+  updatedAt: String!
+  savedDocuments: [Document!]
+  memo: Memo
+  tags: [String!]
+}
+
+"""A structured legal research query."""
+type ResearchQuery {
+  id: ID!
+  text: String!
+  jurisdictions: [Jurisdiction!]
+  courts: [Court!]
+  dateFrom: String
+  dateTo: String
+  caseTypes: [CaseType!]
+  searchMode: SearchMode!
+  filters: QueryFilters
+}
+
+"""Filter options for a research query."""
+type QueryFilters {
+  practiceArea: [String!]
+  citationStatus: [PrecedentStatus!]
+  judges: [String!]
+  keywords: [String!]
+  excludeTerms: [String!]
+  minimumRelevanceScore: Float
+}
+
+"""Mode of search within the platform."""
+enum SearchMode {
+  KEYWORD
+  SEMANTIC
+  PARALLEL_SEARCH
+  BOOLEAN
+  CITATION
+}
+
+"""Search results returned from a query."""
+type SearchResults {
+  id: ID!
+  query: ResearchQuery!
+  totalCount: Int!
+  cases: [CaseResult!]
+  statutes: [StatuteResult!]
+  regulations: [RegulationResult!]
+  took: Int
+  searchId: String!
+}
+
+"""A ranked case result from a search."""
+type CaseResult {
+  case: Case!
+  relevanceScore: Float!
+  snippet: String
+  matchedTerms: [String!]
+  rank: Int!
+}
+
+"""A ranked statute result from a search."""
+type StatuteResult {
+  statute: Statute!
+  relevanceScore: Float!
+  snippet: String
+  rank: Int!
+}
+
+"""A ranked regulation result from a search."""
+type RegulationResult {
+  regulation: Regulation!
+  relevanceScore: Float!
+  snippet: String
+  rank: Int!
+}
+
+# ─── Document Types ───────────────────────────────────────────────────────────
+
+"""A document uploaded to the platform for analysis."""
+type Document {
+  id: ID!
+  name: String!
+  type: DocumentType!
+  details: DocumentDetails
+  uploadedAt: String!
+  processedAt: String
+  size: Int
+  pages: Int
+  content: String
+  citations: [Citation!]
+  analysis: DocumentAnalysis
+}
+
+"""The type of a document."""
+enum DocumentType {
+  BRIEF
+  CONTRACT
+  MEMO
+  PLEADING
+  MOTION
+  ORDER
+  TRANSCRIPT
+  DEPOSITION
+  EXHIBIT
+  OTHER
+}
+
+"""Extended metadata and processing details for a document."""
+type DocumentDetails {
+  document: Document!
+  originalFileName: String!
+  mimeType: String!
+  checksum: String
+  language: String
+  extractedText: String
+  structuredSections: [DocumentSection!]
+  metadata: DocumentMetadata
+}
+
+"""Metadata extracted from a document."""
+type DocumentMetadata {
+  author: String
+  createdDate: String
+  modifiedDate: String
+  title: String
+  subject: String
+  keywords: [String!]
+  pageCount: Int
+  wordCount: Int
+}
+
+"""A section within a structured document."""
+type DocumentSection {
+  id: ID!
+  document: Document!
+  heading: String
+  text: String!
+  pageNumber: Int
+  sectionNumber: String
+  level: Int
+}
+
+"""AI analysis results for a document."""
+type DocumentAnalysis {
+  document: Document!
+  summary: String
+  keyIssues: [String!]
+  citations: [Citation!]
+  riskFactors: [String!]
+  recommendations: [String!]
+  analysisDate: String!
+}
+
+# ─── Brief Types ──────────────────────────────────────────────────────────────
+
+"""A legal brief submitted for analysis."""
+type Brief {
+  id: ID!
+  title: String!
+  document: Document!
+  details: BriefDetails
+  caraAnalysis: CARAAnalysis
+  uploadedAt: String!
+}
+
+"""Extended metadata for a brief."""
+type BriefDetails {
+  brief: Brief!
+  court: Court
+  caseNumber: String
+  filedDate: String
+  dueDate: String
+  pageLimit: Int
+  wordLimit: Int
+  practiceArea: String
+  authors: [String!]
+}
+
+# ─── CARA AI Types ────────────────────────────────────────────────────────────
+
+"""CARA (Case Analysis Research Assistant) analysis session."""
+type CARA {
+  id: ID!
+  brief: Brief!
+  analysis: CARAAnalysis!
+  createdAt: String!
+  status: AnalysisStatus!
+}
+
+"""Status of an AI analysis job."""
+enum AnalysisStatus {
+  QUEUED
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+"""Results from a CARA analysis of a brief."""
+type CARAAnalysis {
+  id: ID!
+  cara: CARA!
+  arguments: [Argument!]!
+  similarCases: [SimilarCase!]!
+  missingCitations: [Case!]
+  recommendedCases: [Case!]
+  weaknesses: [String!]
+  strengths: [String!]
+  overallScore: Float
+  analysisDate: String!
+  modelVersion: String
+}
+
+"""An argument identified within a brief."""
+type Argument {
+  id: ID!
+  caraAnalysis: CARAAnalysis!
+  details: ArgumentDetails!
+  supportingCases: [Case!]
+  opposingCases: [Case!]
+  relevantStatutes: [Statute!]
+  strength: ArgumentStrength!
+  rank: Int
+}
+
+"""Detailed content of a legal argument."""
+type ArgumentDetails {
+  argument: Argument!
+  text: String!
+  heading: String
+  pageNumber: Int
+  paragraphNumber: Int
+  legalStandard: String
+  citations: [Citation!]
+  keyTerms: [String!]
+}
+
+"""Strength assessment of a legal argument."""
+enum ArgumentStrength {
+  STRONG
+  MODERATE
+  WEAK
+  UNSUPPORTED
+}
+
+"""Similarity relationship between two cases."""
+type Similarity {
+  id: ID!
+  sourceCase: Case!
+  targetCase: Case!
+  score: Float!
+  sharedArguments: [String!]
+  sharedCitations: [Citation!]
+  explanation: String
+}
+
+"""A similar case found by CARA or Parallel Search."""
+type SimilarCase {
+  id: ID!
+  case: Case!
+  similarity: Similarity!
+  relevanceExplanation: String
+  rank: Int!
+  recommendedFor: [Argument!]
+}
+
+# ─── Memo Types ───────────────────────────────────────────────────────────────
+
+"""An AI-generated legal research memo."""
+type Memo {
+  id: ID!
+  title: String!
+  query: String!
+  details: MemoDetails!
+  research: Research
+  createdAt: String!
+  status: AnalysisStatus!
+}
+
+"""Content and metadata for a research memo."""
+type MemoDetails {
+  memo: Memo!
+  introduction: String
+  issueStatement: String
+  briefAnswer: String
+  discussion: String
+  conclusion: String
+  recommendations: [String!]
+  cases: [Case!]
+  statutes: [Statute!]
+  regulations: [Regulation!]
+  wordCount: Int
+  generatedBy: String
+  modelVersion: String
+}
+
+# ─── Contract Analysis Types ──────────────────────────────────────────────────
+
+"""A contract submitted for AI analysis."""
+type Contract {
+  id: ID!
+  title: String!
+  document: Document!
+  analysis: ContractAnalysis
+  uploadedAt: String!
+  status: AnalysisStatus!
+}
+
+"""AI-generated analysis of a contract."""
+type ContractAnalysis {
+  id: ID!
+  contract: Contract!
+  summary: String!
+  clauses: [ClauseAnalysis!]!
+  riskScore: Float
+  riskFactors: [RiskFactor!]
+  missingClauses: [String!]
+  recommendations: [String!]
+  partyObligations: [PartyObligation!]
+  keyDates: [ContractDate!]
+  analysisDate: String!
+  modelVersion: String
+}
+
+"""Analysis of a single clause within a contract."""
+type ClauseAnalysis {
+  id: ID!
+  contractAnalysis: ContractAnalysis!
+  clauseType: String!
+  heading: String
+  text: String!
+  pageNumber: Int
+  riskLevel: RiskLevel!
+  explanation: String
+  recommendation: String
+  standardLanguage: String
+  deviations: [String!]
+}
+
+"""Risk level classification."""
+enum RiskLevel {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+"""A risk factor identified in a contract."""
+type RiskFactor {
+  id: ID!
+  description: String!
+  severity: RiskLevel!
+  clauseReference: String
+  recommendation: String
+  legalBasis: String
+}
+
+"""Obligations of a party identified in a contract."""
+type PartyObligation {
+  party: String!
+  obligations: [String!]!
+  rights: [String!]!
+  deadlines: [ContractDate!]
+}
+
+"""A key date extracted from a contract."""
+type ContractDate {
+  label: String!
+  date: String
+  description: String
+  party: String
+  critical: Boolean!
+}
+
+"""A redline comparison between two contract versions."""
+type RedlineComparison {
+  id: ID!
+  originalContract: Contract!
+  revisedContract: Contract!
+  additions: [RedlineChange!]!
+  deletions: [RedlineChange!]!
+  modifications: [RedlineChange!]!
+  summary: String
+  riskDelta: Float
+  createdAt: String!
+}
+
+"""A single change in a redline comparison."""
+type RedlineChange {
+  id: ID!
+  changeType: ChangeType!
+  originalText: String
+  revisedText: String
+  location: String
+  pageNumber: Int
+  significance: String
+  riskImpact: RiskLevel
+}
+
+"""Type of change in a redline."""
+enum ChangeType {
+  ADDITION
+  DELETION
+  MODIFICATION
+}
+
+# ─── API Access Types ─────────────────────────────────────────────────────────
+
+"""An API key for accessing the Casetext platform."""
+type APIKey {
+  id: ID!
+  name: String!
+  prefix: String!
+  createdAt: String!
+  expiresAt: String
+  lastUsedAt: String
+  active: Boolean!
+  scopes: [APIScope!]!
+  rateLimitInfo: RateLimitInfo
+  token: Token
+}
+
+"""An authentication token."""
+type Token {
+  id: ID!
+  value: String!
+  type: TokenType!
+  expiresAt: String!
+  issuedAt: String!
+  scopes: [APIScope!]!
+  apiKey: APIKey
+}
+
+"""Type of authentication token."""
+enum TokenType {
+  BEARER
+  API_KEY
+  SESSION
+  REFRESH
+}
+
+"""Rate limiting information for an API key or session."""
+type RateLimitInfo {
+  apiKey: APIKey
+  requestsPerMinute: Int!
+  requestsPerHour: Int!
+  requestsPerDay: Int!
+  currentMinuteCount: Int!
+  currentHourCount: Int!
+  currentDayCount: Int!
+  resetAt: String!
+  throttled: Boolean!
+}
+
+"""Scopes defining permissions for an API key."""
+enum APIScope {
+  READ_CASES
+  READ_STATUTES
+  READ_REGULATIONS
+  SEARCH
+  PARALLEL_SEARCH
+  UPLOAD_DOCUMENTS
+  CARA_ANALYSIS
+  CONTRACT_ANALYSIS
+  MEMO_GENERATION
+  MANAGE_KEYS
+  ADMIN
+}
+
+# ─── Root Types ───────────────────────────────────────────────────────────────
+
+"""Root query type."""
+type Query {
+  """Fetch a case by ID."""
+  case(id: ID!): Case
+
+  """Fetch a case by citation string."""
+  caseByEitation(citation: String!): Case
+
+  """Search cases, statutes, and regulations."""
+  search(query: ResearchQuery!): SearchResults!
+
+  """Perform a Parallel Search (neural semantic search) across case law."""
+  parallelSearch(text: String!, jurisdictions: [String!], limit: Int): [CaseResult!]!
+
+  """Fetch a statute by ID."""
+  statute(id: ID!): Statute
+
+  """Fetch a regulation by ID."""
+  regulation(id: ID!): Regulation
+
+  """Fetch a bill by ID."""
+  bill(id: ID!): Bill
+
+  """Analyze a citation with SmartCite."""
+  citationAnalysis(citation: String!): CitationAnalysis
+
+  """Fetch a court by ID."""
+  court(id: ID!): Court
+
+  """List courts filtered by level or jurisdiction."""
+  courts(level: CourtLevel, jurisdictionId: ID): [Court!]!
+
+  """Fetch a jurisdiction by abbreviation."""
+  jurisdiction(abbreviation: String!): Jurisdiction
+
+  """List all jurisdictions."""
+  jurisdictions(type: JurisdictionType): [Jurisdiction!]!
+
+  """Fetch a judge by ID."""
+  judge(id: ID!): Judge
+
+  """Fetch a document by ID."""
+  document(id: ID!): Document
+
+  """Fetch a brief by ID."""
+  brief(id: ID!): Brief
+
+  """Fetch a CARA analysis by ID."""
+  caraAnalysis(id: ID!): CARAAnalysis
+
+  """Fetch a research memo by ID."""
+  memo(id: ID!): Memo
+
+  """Fetch a contract by ID."""
+  contract(id: ID!): Contract
+
+  """Fetch a contract analysis by ID."""
+  contractAnalysis(id: ID!): ContractAnalysis
+
+  """Fetch a redline comparison by ID."""
+  redlineComparison(id: ID!): RedlineComparison
+
+  """List API keys for the authenticated user."""
+  apiKeys: [APIKey!]!
+
+  """Fetch rate limit info for the current API key."""
+  rateLimitInfo: RateLimitInfo!
+
+  """Fetch a research session by ID."""
+  research(id: ID!): Research
+
+  """List research sessions for the authenticated user."""
+  researchHistory(limit: Int, offset: Int): [Research!]!
+}
+
+"""Root mutation type."""
+type Mutation {
+  """Create a new API key."""
+  createAPIKey(name: String!, scopes: [APIScope!]!, expiresIn: Int): APIKey!
+
+  """Revoke an API key."""
+  revokeAPIKey(id: ID!): Boolean!
+
+  """Upload a document for processing."""
+  uploadDocument(name: String!, content: String!, type: DocumentType!): Document!
+
+  """Submit a brief for CARA analysis."""
+  analyzeBrief(documentId: ID!): CARA!
+
+  """Request an AI-generated research memo."""
+  generateMemo(query: String!, jurisdictions: [String!]): Memo!
+
+  """Submit a contract for AI analysis."""
+  analyzeContract(documentId: ID!): Contract!
+
+  """Compare two contract versions."""
+  compareContracts(originalId: ID!, revisedId: ID!): RedlineComparison!
+
+  """Save a research session."""
+  saveResearch(queryId: ID!, title: String!, tags: [String!]): Research!
+
+  """Delete a research session."""
+  deleteResearch(id: ID!): Boolean!
+}

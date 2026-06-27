@@ -3,13 +3,10 @@
   "feeds": [
     {
       "source": "https://casetext.com/blog/",
-      "error": "HTTPError"
-    },
-    {
-      "source": "https://casetext.com/careers/",
-      "error": "HTTPError"
+      "saved": 0,
+      "error": "fetch failed (blocked)"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T12:31:14Z"
 }

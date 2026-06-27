@@ -69,7 +69,7 @@ common:
   url: https://casetext.com/blog/
 - type: Contact
   url: https://casetext.com/contact/
-- type: SignIn
+- type: Login
   url: https://casetext.com/signin/
 - type: ParentCompany
   url: https://www.thomsonreuters.com

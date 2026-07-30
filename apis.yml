@@ -20,9 +20,20 @@ description: Casetext is a legal technology company founded in 2013 by Jake Hell
   research forks (transformers, ELECTRA, pgvector, FiD) plus a handful of internal
   infrastructure repos that were archived after the Thomson Reuters acquisition.
 type: Index
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
 position: Provider
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/casetext.png
 tags:
 - Legal
 - Legal Tech

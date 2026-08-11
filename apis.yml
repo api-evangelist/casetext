@@ -1,6 +1,7 @@
 aid: casetext
 name: Casetext
-description: Casetext is a legal technology company founded in 2013 by Jake Heller,
+description: >-
+  Casetext is a legal technology company founded in 2013 by Jake Heller,
   Joanna Huey, and Laurence Pfeffer and headquartered in San Francisco, California.
   The company built one of the earliest neural-search engines for U.S. case law (Parallel
   Search) and a broader research platform covering federal and state cases, statutes,
@@ -12,25 +13,37 @@ description: Casetext is a legal technology company founded in 2013 by Jake Hell
   a private document search tool that lets firms run Parallel Search across their
   own document collections, and Compose, an automated brief-drafting product. Thomson
   Reuters acquired Casetext in June 2023 for $650 million in an all-cash deal that
-  closed in August 2023, and CoCounsel has since been integrated across Thomson Reuters'
+  closed on August 17, 2023, and CoCounsel has since been integrated across Thomson Reuters'
   Westlaw, Practical Law, and HighQ product lines as the company's flagship legal-AI
-  assistant. The Casetext platform is sold as a SaaS subscription to law firms, corporate
-  legal departments, and government agencies; there is no public developer API, SDK,
-  or open-source release, and the casetext GitHub organization contains only archived
-  research forks (transformers, ELECTRA, pgvector, FiD) plus a handful of internal
-  infrastructure repos that were archived after the Thomson Reuters acquisition.
+  assistant. Casetext is now a RETIRED BRAND rather than an active provider: casetext.com
+  began redirecting to a Thomson Reuters CoCounsel page on February 1, 2025, CoCounsel 1.0
+  access on the Casetext platform ended March 31, 2025, and the standalone platform was shut
+  down on April 1, 2025. As of August 2026 every path on the domain returns HTTP 410 Gone
+  behind a hand-written retirement notice pointing users to Westlaw, and the developer-facing
+  subdomains do not resolve. Casetext never published a public developer API, SDK, or
+  machine-readable specification of any kind; the casetext GitHub organization holds 79
+  fully archived repositories — research forks (transformers, ELECTRA, pgvector, FiD) and
+  early JavaScript infrastructure utilities — and the 15 npm packages it published are
+  general-purpose libraries rather than API clients, the newest released in June 2018.
 type: Index
 accessModel:
-  pricing: unknown
-  onboarding: unknown
+  pricing: unavailable
+  onboarding: unavailable
   trial: false
   try_now: false
   public: false
-  label: Unknown
-  confidence: low
-  source: []
-  generated: '2026-07-22'
-  method: derived
+  label: Retired
+  confidence: high
+  source:
+  - {url: 'https://casetext.com/pricing/', status: 410}
+  - {url: 'https://casetext.com/signin/', status: 410}
+  - {url: 'https://casetext.com/', status: 301, note: redirects to thomsonreuters.com/en/cocounsel}
+  generated: '2026-08-10'
+  method: probed
+  note: >-
+    Not "unknown" — verified unavailable. The product was retired on 2025-04-01; there is no
+    pricing page, no sign-up, and no way to onboard. Upgraded from the derived
+    pricing:unknown/confidence:low placeholder on evidence.
 position: Provider
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/casetext.png
@@ -52,42 +65,34 @@ tags:
 - Thomson Reuters
 url: https://raw.githubusercontent.com/api-evangelist/casetext/refs/heads/main/apis.yml
 created: '2026-05-25'
-modified: '2026-05-25'
+modified: '2026-08-10'
 specificationVersion: '0.20'
 apis: []
 common:
 - type: DomainSecurity
   url: security/casetext-domain-security.yml
+- type: Lifecycle
+  url: lifecycle/casetext-lifecycle.yml
+  name: Casetext retirement timeline and 410 evidence
+- type: Packages
+  url: packages/casetext-packages.yml
+  name: 15 first-party npm packages (0 API clients, all stale since 2018)
+- type: LLMsTxt
+  url: llms/casetext-llms.txt
+- type: Plans
+  url: plans/casetext-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/casetext-rate-limits.yml
 - type: Website
   url: https://casetext.com
-- type: CoCounsel
-  url: https://casetext.com/cocounsel/
-- type: ParallelSearch
-  url: https://casetext.com/parallel-search/
-- type: AllSearch
-  url: https://casetext.com/allsearch/
-- type: Compose
-  url: https://compose.law/
-- type: SmartCite
-  url: https://casetext.com/smartcite/
-- type: Pricing
-  url: https://casetext.com/pricing/
-- type: Customers
-  url: https://casetext.com/customers/
-- type: About
-  url: https://casetext.com/about/
-- type: Careers
-  url: https://casetext.com/careers/
-- type: Blog
-  url: https://casetext.com/blog/
-- type: Contact
-  url: https://casetext.com/contact/
-- type: Login
-  url: https://casetext.com/signin/
+- type: Successor
+  url: https://www.thomsonreuters.com/en/cocounsel
+  name: Thomson Reuters CoCounsel — where the product went
 - type: ParentCompany
   url: https://www.thomsonreuters.com
 - type: Acquisition
-  url: https://www.thomsonreuters.com/en/press-releases/2023/june/thomson-reuters-to-acquire-casetext-an-ai-leader-for-legal-professionals.html
+  url: https://www.thomsonreuters.com/en/press-releases/2023/august/thomson-reuters-completes-acquisition-of-casetext-inc
+  name: Acquisition closed 2023-08-17 for $650M in cash
 - type: GitHub
   url: https://github.com/casetext
 - type: Twitter
@@ -98,8 +103,59 @@ common:
   url: https://www.crunchbase.com/organization/casetext
 - type: Wikipedia
   url: https://en.wikipedia.org/wiki/Casetext
-- url: graphql/casetext-graphql.md
-  type: GraphQL
+x-retired-links:
+  note: >-
+    These pointers were removed from common[] on 2026-08-10 because every one of them returns
+    HTTP 410 Gone. They are retained here as history, NOT as claims. Several were scored
+    checks — Pricing (4 pts), Login/SignUp (5 pts) and Blog (1 pt) are bare
+    `common[].type includes "X"` rules, so the profile was drawing 10 points of credit for
+    pages the provider had explicitly marked Gone. A 410 is the provider stating the resource
+    is permanently removed; it is the strongest possible evidence AGAINST presence.
+  checked: '2026-08-10'
+  links:
+  - {type: CoCounsel, url: 'https://casetext.com/cocounsel/', status: 410}
+  - {type: ParallelSearch, url: 'https://casetext.com/parallel-search/', status: 410}
+  - {type: AllSearch, url: 'https://casetext.com/allsearch/', status: 410}
+  - {type: SmartCite, url: 'https://casetext.com/smartcite/', status: 410}
+  - {type: Compose, url: 'https://compose.law/', status: 404, note: '"Site Not Configured" holding page; TLS cert does not match the host'}
+  - {type: Pricing, url: 'https://casetext.com/pricing/', status: 410, scored: true, points: 4}
+  - {type: Login, url: 'https://casetext.com/signin/', status: 410, scored: true, points: 5}
+  - {type: Blog, url: 'https://casetext.com/blog/', status: 410, scored: true, points: 1}
+  - {type: Customers, url: 'https://casetext.com/customers/', status: 410}
+  - {type: About, url: 'https://casetext.com/about/', status: 410}
+  - {type: Careers, url: 'https://casetext.com/careers/', status: 410}
+  - {type: Contact, url: 'https://casetext.com/contact/', status: 410}
+  - type: GraphQL
+    url: graphql/casetext-graphql.md
+    status: null
+    note: >-
+      Not a dead link — a FABRICATION. The file was an API Evangelist conceptual schema that
+      said so in its own text ("this schema is a conceptual model"), yet was wired as if
+      Casetext published a GraphQL API. Quarantined to _fabricated/graphql/ on 2026-08-10.
+      https://casetext.com/graphql returns 410.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-10'
+  status: minimal
+  artifacts_added: 6
+  pass: local-v1
+x-coverage:
+  state: none
+  reason: defunct
+  detail: >-
+    Casetext was absorbed into Thomson Reuters and the standalone platform was shut down on
+    2025-04-01; casetext.com now 301s to thomsonreuters.com/en/cocounsel and every other path
+    on the domain — including /pricing/, /blog/, /signin/, /robots.txt and every
+    /.well-known/ path — returns HTTP 410 Gone behind a "This service is no longer available"
+    notice, while api., developer., docs. and app.casetext.com no longer resolve.
+  evidence:
+  - {url: 'https://casetext.com/', status: 301}
+  - {url: 'https://casetext.com/pricing/', status: 410}
+  - {url: 'https://casetext.com/graphql', status: 410}
+  - {url: 'https://casetext.com/openapi.json', status: 410}
+  - {url: 'https://casetext.com/.well-known/agent-card.json', status: 410}
+  - {url: 'https://parallelsearch.casetext.com/', status: 410}
+  - {url: 'https://compose.law/', status: 404}
+  checked: '2026-08-10'

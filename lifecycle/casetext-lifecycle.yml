@@ -1,0 +1,106 @@
+generated: '2026-08-10'
+method: probed
+source: live HTTP probes of casetext.com + Thomson Reuters press releases
+summary: >-
+  Casetext is a RETIRED BRAND, not a live provider. Thomson Reuters closed its $650M
+  all-cash acquisition on 2023-08-17, redirected casetext.com to a Thomson Reuters CoCounsel
+  page on 2025-02-01, ended CoCounsel 1.0 access on the Casetext platform on 2025-03-31, and
+  shut the standalone platform down on 2025-04-01. As of the 2026-08-10 probe the entire
+  domain answers HTTP 410 Gone from a Cloudflare edge with a hand-written retirement notice;
+  the apex 301s to thomsonreuters.com/en/cocounsel. There is nothing left to deprecate.
+
+state: retired
+operational: false
+
+versioning:
+  scheme: null
+  current: null
+  docs: null
+  note: No API and no versioned contract ever existed publicly, so there is no version scheme.
+
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: >-
+    Casetext published no deprecation or sunset policy. The shutdown was executed as a
+    blanket HTTP 410 Gone across every path rather than via RFC 8594 Sunset/Deprecation
+    headers on a versioned contract. No `type: Deprecation` pointer is emitted in apis.yml —
+    a retirement event is not a published deprecation policy, and crediting one here would
+    award the provider a governance artifact it never wrote.
+
+sla:
+  url: null
+  uptime_target: null
+
+status_page: null
+status_page_note: >-
+  No status page exists and none is inherited. No `type: StatusPage` pointer is emitted.
+
+retirement:
+  final_state: 410 Gone (sitewide)
+  apex_redirect: https://www.thomsonreuters.com/en/cocounsel
+  retirement_notice: >-
+    "This service is no longer available, but we appreciate you being a part of it. For legal
+    research, please visit Westlaw, and if you're curious about legal AI, ..."
+  successor_product: Thomson Reuters CoCounsel (CoCounsel Legal, inside the Westlaw ecosystem)
+  successor_url: https://www.thomsonreuters.com/en/cocounsel
+  data_migration_note: >-
+    Thomson Reuters did not migrate CoCounsel 1.0 chats or chat-uploaded documents into the
+    successor platform; access to them ended with the 2025-03-31 cutoff.
+
+timeline:
+- date: '2013'
+  event: Casetext founded by Jake Heller, Joanna Huey, and Laurence Pfeffer
+  confidence: high
+- date: '2023-03'
+  event: CoCounsel released, built on OpenAI GPT-4
+  confidence: high
+- date: '2023-06-26'
+  event: Thomson Reuters announces agreement to acquire Casetext for $650M
+  source: https://www.thomsonreuters.com/en/press-releases/2023/june/thomson-reuters-to-acquire-casetext-an-ai-leader-for-legal-professionals.html
+  confidence: high
+- date: '2023-08-17'
+  event: >-
+    Acquisition closes. "Thomson Reuters ... announced today that it has closed on its
+    previously announced acquisition of Casetext, Inc. ... for a purchase price of $650
+    million in cash."
+  source: https://www.thomsonreuters.com/en/press-releases/2023/august/thomson-reuters-completes-acquisition-of-casetext-inc
+  confidence: high
+  verified: '2026-08-10'
+- date: '2025-02-01'
+  event: casetext.com begins redirecting to the Thomson Reuters CoCounsel page
+  confidence: medium
+  note: Reported consistently across secondary sources; Thomson Reuters' own CoCounsel 2.0 migration help page now returns 404.
+- date: '2025-03-31'
+  event: Last day of CoCounsel 1.0 access on the Casetext platform
+  confidence: medium
+- date: '2025-04-01'
+  event: Standalone Casetext platform shut down
+  confidence: medium
+- date: '2025-08'
+  event: CoCounsel Legal launched by Thomson Reuters, integrated into Westlaw
+  confidence: medium
+- date: '2026-08-10'
+  event: Probe confirms sitewide HTTP 410 Gone; all developer-relevant subdomains NXDOMAIN
+  confidence: high
+  verified: true
+
+deprecated_operations: []
+
+evidence:
+- {url: 'https://casetext.com/', status: 301, note: 'Location: https://www.thomsonreuters.com/en/cocounsel'}
+- {url: 'https://casetext.com/pricing/', status: 410}
+- {url: 'https://casetext.com/cocounsel/', status: 410}
+- {url: 'https://casetext.com/blog/', status: 410}
+- {url: 'https://casetext.com/signin/', status: 410}
+- {url: 'https://casetext.com/about/', status: 410}
+- {url: 'https://casetext.com/robots.txt', status: 410}
+- {url: 'https://casetext.com/sitemap.xml', status: 410}
+- {url: 'https://parallelsearch.casetext.com/', status: 410, note: served the retirement notice}
+- {url: 'https://compose.law/', status: 404, note: '"Site Not Configured" holding page; TLS cert does not match the host'}
+- {url: 'https://www.thomsonreuters.com/en-us/help/cocounsel/legal/get-started/cocounsel-2-0-migration-information', status: 404, note: Thomson Reuters removed its own migration help page}
+- {host: api.casetext.com, dns: NXDOMAIN}
+- {host: developer.casetext.com, dns: NXDOMAIN}
+- {host: docs.casetext.com, dns: NXDOMAIN}
+- {host: app.casetext.com, dns: NXDOMAIN}
+- {host: cocounsel.casetext.com, dns: NXDOMAIN}

@@ -1,0 +1,19 @@
+generated: '2026-08-10'
+method: probed
+source: https://casetext.com/pricing/
+plan_count: 0
+currency: null
+plans: []
+note: >-
+  An honest zero, recorded rather than omitted. Casetext's pricing page returned HTTP 410
+  Gone on 2026-08-10 — the brand was retired by Thomson Reuters on 2025-04-01 and the whole
+  domain now serves a blanket 410 with a retirement notice. There are no current Casetext
+  plans to record because there is no current Casetext product.
+  Historic self-serve pricing (roughly $65-$99 per seat per month before the shutdown) is
+  reported by secondary sources only and is NOT recorded as a plan here: it is unverifiable
+  against a live provider page and would read as an active offer. The successor product is
+  sold by Thomson Reuters and belongs on the Thomson Reuters profile, not this one.
+evidence:
+- {url: 'https://casetext.com/pricing/', status: 410, checked: '2026-08-10'}
+- {url: 'https://casetext.com/', status: 301, checked: '2026-08-10', note: redirects to thomsonreuters.com/en/cocounsel}
+successor: https://www.thomsonreuters.com/en/cocounsel

@@ -1,0 +1,17 @@
+generated: '2026-08-10'
+method: probed
+source: https://casetext.com/
+limit_count: 0
+rate_limits: []
+headers: []
+note: >-
+  An honest zero. Casetext never published a public API, so there is no rate-limit contract
+  to document — no scopes, no windows, no X-RateLimit-*/RateLimit-* response headers, no
+  documented 429 behavior. The point is now moot regardless: every path on the domain
+  returns HTTP 410 Gone following the 2025-04-01 retirement of the standalone platform.
+  Recorded explicitly so this reads as a verified absence rather than an unrun probe, and so
+  no scaffold pass fills the vacuum with invented quotas.
+evidence:
+- {url: 'https://casetext.com/', status: 301, checked: '2026-08-10'}
+- {url: 'https://casetext.com/openapi.json', status: 410, checked: '2026-08-10'}
+- {url: 'https://casetext.com/api-docs', status: 404, checked: '2026-08-10'}

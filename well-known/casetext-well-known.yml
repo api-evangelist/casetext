@@ -1,0 +1,54 @@
+generated: '2026-08-10'
+method: probed
+source: live GET of /.well-known/* on every host named in apis.yml
+note: >-
+  Recorded absence, not a discovery surface. Every path returned HTTP 410 Gone from the
+  Cloudflare edge in front of casetext.com — the same sitewide retirement response the rest
+  of the domain serves. No document was returned on any path, so NO WellKnown and NO
+  SecurityTxt pointer is emitted in apis.yml. This file exists to record that the probe ran
+  and what it found, so a later pass does not repeat it and no reader mistakes silence for
+  an untried surface.
+hosts_probed:
+- casetext.com
+- parallelsearch.casetext.com
+hosts_unresolvable:
+- api.casetext.com
+- app.casetext.com
+- developer.casetext.com
+- docs.casetext.com
+- cocounsel.casetext.com
+host: https://casetext.com
+documents:
+- path: /.well-known/security.txt
+  status: 410
+  content_type: text/html
+  file: null
+- path: /.well-known/openid-configuration
+  status: 410
+  content_type: text/html
+  file: null
+- path: /.well-known/oauth-authorization-server
+  status: 410
+  content_type: text/html
+  file: null
+- path: /.well-known/api-catalog
+  status: 410
+  content_type: text/html
+  file: null
+- path: /.well-known/ai-plugin.json
+  status: 410
+  content_type: text/html
+  file: null
+- path: /.well-known/agent-card.json
+  status: 410
+  content_type: text/html
+  file: null
+- path: /.well-known/agent.json
+  status: 410
+  content_type: text/html
+  file: null
+summary:
+  documents_found: 0
+  security_txt: false
+  agent_card: false
+  oauth_metadata: false

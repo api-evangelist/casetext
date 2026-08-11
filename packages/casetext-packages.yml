@@ -1,0 +1,197 @@
+generated: '2026-08-10'
+method: searched
+source: https://registry.npmjs.org/ (per-package metadata endpoint, unauthenticated)
+note: >-
+  Casetext published 15 npm packages under its own GitHub org, every one confirmed
+  first-party by a registry `repository.url` pointing at github.com/casetext. NONE of them
+  is an API client library — they are general-purpose JavaScript utilities (Firebase
+  promise wrappers, a Quill delta renderer, an FNV hash, a PEG.js importer, a local Lambda
+  runner, a cron scheduler) open-sourced out of Casetext's own product engineering between
+  2013 and 2018. There is no Casetext API for a client library to wrap.
+  Because of that, NO `type: SDKs` pointer is emitted in apis.yml — an SDKs pointer would
+  award the sdk_count ergonomics check for developer libraries that do not exist. Only the
+  neutral `type: Packages` pointer is wired.
+  As decay evidence this set is unambiguous: the most recently published package is
+  ultracron 0.0.7 on 2018-06-08, more than eight years stale and five years before the
+  Thomson Reuters acquisition. Every backing repository is archived.
+registries_probed:
+- {registry: npm, result: 15 first-party packages}
+- {registry: pypi, result: none (casetext 404, cocounsel 404)}
+- {registry: rubygems, result: none}
+- {registry: packagist, result: none}
+- {registry: crates.io, result: none}
+- {registry: nuget, result: none}
+- {registry: maven-central, result: none}
+- {registry: pkg.go.dev, result: none}
+summary:
+  package_count: 15
+  api_client_count: 0
+  official_count: 15
+  latest_publish_date: '2018-06-08'
+  all_repos_archived: true
+packages:
+- language: javascript
+  registry: npm
+  name: ultracron
+  url: https://www.npmjs.com/package/ultracron
+  install: npm install ultracron
+  official: true
+  api_client: false
+  version: 0.0.7
+  published: '2018-06-08'
+  repository: https://github.com/casetext/ultracron
+  description: A simple job scheduler
+- language: javascript
+  registry: npm
+  name: oilspill
+  url: https://www.npmjs.com/package/oilspill
+  install: npm install oilspill
+  official: true
+  api_client: false
+  version: 2.1.3
+  published: '2017-01-27'
+  repository: https://github.com/casetext/oilspill
+  description: Monitors the status of a stream pipeline
+- language: javascript
+  registry: npm
+  name: firesentry
+  url: https://www.npmjs.com/package/firesentry
+  install: npm install firesentry
+  official: true
+  api_client: false
+  version: 1.1.2
+  published: '2017-01-19'
+  repository: https://github.com/casetext/firesentry
+  description: Firebase watcher with hot reloading
+- language: javascript
+  registry: npm
+  name: comms
+  url: https://www.npmjs.com/package/comms
+  install: npm install comms
+  official: true
+  api_client: false
+  version: 0.1.1
+  published: '2016-11-11'
+  repository: https://github.com/casetext/comms
+  description: Basic IPC comms
+- language: javascript
+  registry: npm
+  name: firebase-repl
+  url: https://www.npmjs.com/package/firebase-repl
+  install: npm install firebase-repl
+  official: true
+  api_client: false
+  version: 1.1.0
+  published: '2016-05-20'
+  repository: https://github.com/casetext/firebase-repl
+  description: A Firebase REPL
+- language: javascript
+  registry: npm
+  name: firebase-stats
+  url: https://www.npmjs.com/package/firebase-stats
+  install: npm install firebase-stats
+  official: true
+  api_client: false
+  version: 1.0.0
+  published: '2016-02-09'
+  repository: https://github.com/casetext/firebase-stats
+  description: Retrieve Firebase network stats from a Firebase ref
+- language: javascript
+  registry: npm
+  name: fireproof
+  url: https://www.npmjs.com/package/fireproof
+  install: npm install fireproof
+  official: true
+  api_client: false
+  version: 3.1.0
+  published: '2015-11-23'
+  repository: https://github.com/casetext/fireproof
+  description: Promises for Firebase objects
+- language: javascript
+  registry: npm
+  name: quill-render
+  url: https://www.npmjs.com/package/quill-render
+  install: npm install quill-render
+  official: true
+  api_client: false
+  version: 1.0.5
+  published: '2015-10-26'
+  repository: https://github.com/casetext/quill-render
+  description: Renders quilljs deltas into HTML
+- language: javascript
+  registry: npm
+  name: flashpoint
+  url: https://www.npmjs.com/package/flashpoint
+  install: npm install flashpoint
+  official: true
+  api_client: false
+  version: 5.0.1
+  published: '2015-06-26'
+  repository: https://github.com/casetext/flashpoint
+  description: Angular bindings for Fireproof. Replaces AngularFire.
+- language: javascript
+  registry: npm
+  name: fnv-lite
+  url: https://www.npmjs.com/package/fnv-lite
+  install: npm install fnv-lite
+  official: true
+  api_client: false
+  version: 1.2.0
+  published: '2015-05-28'
+  repository: https://github.com/casetext/fnv-lite
+  description: Small 128-bit FNV-1a library for the browser
+- language: javascript
+  registry: npm
+  name: locavore
+  url: https://www.npmjs.com/package/locavore
+  install: npm install locavore
+  official: true
+  api_client: false
+  version: 2.1.2
+  published: '2015-04-11'
+  repository: https://github.com/casetext/locavore
+  description: Runs AWS Lambda functions locally
+- language: javascript
+  registry: npm
+  name: customerio-client
+  url: https://www.npmjs.com/package/customerio-client
+  install: npm install customerio-client
+  official: true
+  api_client: false
+  version: 0.1.5
+  published: '2015-04-07'
+  repository: https://github.com/casetext/customerio-client
+  description: A Node client for Customer.io (third-party API, not Casetext's)
+- language: javascript
+  registry: npm
+  name: sortinghat
+  url: https://www.npmjs.com/package/sortinghat
+  install: npm install sortinghat
+  official: true
+  api_client: false
+  version: 2.0.0
+  published: '2015-04-02'
+  repository: https://github.com/casetext/sortinghat
+  description: Watches Firebase for changes
+- language: javascript
+  registry: npm
+  name: service-url-finder
+  url: https://www.npmjs.com/package/service-url-finder
+  install: npm install service-url-finder
+  official: true
+  api_client: false
+  version: 1.0.0
+  published: '2015-04-02'
+  repository: https://github.com/casetext/service-url-finder
+  description: Get the URL for a service from the environment
+- language: javascript
+  registry: npm
+  name: pegjs-import
+  url: https://www.npmjs.com/package/pegjs-import
+  install: npm install pegjs-import
+  official: true
+  api_client: false
+  version: 0.2.6
+  published: '2014-10-23'
+  repository: https://github.com/casetext/pegjs-import
+  description: Import other PEG files into a PEG.js grammar

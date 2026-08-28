@@ -26,6 +26,17 @@ description: >-
   early JavaScript infrastructure utilities — and the 15 npm packages it published are
   general-purpose libraries rather than API clients, the newest released in June 2018.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unavailable
   onboarding: unavailable

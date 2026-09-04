@@ -49,13 +49,14 @@ accessModel:
   - {url: 'https://casetext.com/pricing/', status: 410}
   - {url: 'https://casetext.com/signin/', status: 410}
   - {url: 'https://casetext.com/', status: 301, note: redirects to thomsonreuters.com/en/cocounsel}
+  - {url: 'https://casetext.com', status: 301, note: 'declared website redirects to https://www.thomsonreuters.com/en/cocounsel — a different registrable domain (casetext.com -> thomsonreuters.com), possible rename or acquisition (probed 2026-09-03, roadmap#169)'}
   generated: '2026-08-10'
   method: probed
   note: >-
     Not "unknown" — verified unavailable. The product was retired on 2025-04-01; there is no
     pricing page, no sign-up, and no way to onboard. Upgraded from the derived
     pricing:unknown/confidence:low placeholder on evidence.
-position: Provider
+position: Producing
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/casetext.png
 tags:

@@ -25,6 +25,10 @@ description: >-
   fully archived repositories — research forks (transformers, ELECTRA, pgvector, FiD) and
   early JavaScript infrastructure utilities — and the 15 npm packages it published are
   general-purpose libraries rather than API clients, the newest released in June 2018.
+x-status: acquired
+x-acquired-by: thomson-reuters
+x-acquired-year: 2023
+x-status-source: https://www.thomsonreuters.com/en/cocounsel  # casetext.com 301s here (checked 2026-10-03); Thomson Reuters closed the acquisition 2023-08-17 and CoCounsel, Casetext's product, is live; only the standalone casetext.com platform was retired 2025-04-01
 type: Index
 deliveryModel:
   model: saas
